@@ -1,7 +1,5 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('adds `nullable: true` for `type: [string, null]`', async () => {
 	const schema = {
@@ -13,39 +11,32 @@ it('adds `nullable: true` for `type: [string, null]`', async () => {
 
 	should(result).deepEqual({
 		type: 'string',
-		nullable: true
+		nullable: true,
 	});
 });
-
 
 it('supports nullables inside sub-schemas', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
-		oneOf: [
-			{ type: 'string' },
-			{ type: 'null' }
-		]
+		oneOf: [{ type: 'string' }, { type: 'null' }],
 	};
 
 	const result = await convert(schema);
 
 	should(result).deepEqual({
-		oneOf: [
-			{ type: 'string' },
-			{ nullable: true }
-		]
+		oneOf: [{ type: 'string' }, { nullable: true }],
 	});
 });
 
 it('does not add nullable for non null types', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
-		type: 'string'
+		type: 'string',
 	};
 
 	const result = await convert(schema);
 
 	should(result).deepEqual({
-		type: 'string'
+		type: 'string',
 	});
 });

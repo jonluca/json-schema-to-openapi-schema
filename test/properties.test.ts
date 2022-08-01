@@ -1,19 +1,17 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('type array', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
-		type: ['string', 'null']
+		type: ['string', 'null'],
 	};
 
 	const result = await convert(schema);
 
 	const expected = {
 		type: 'string',
-		nullable: true
+		nullable: true,
 	};
 
 	should(result).deepEqual(expected);
@@ -29,9 +27,9 @@ it('properties', async () => {
 				type: 'string',
 			},
 			bar: {
-				type: ['string', 'null']
-			}
-		}
+				type: ['string', 'null'],
+			},
+		},
 	};
 
 	const result = await convert(schema);
@@ -45,9 +43,9 @@ it('properties', async () => {
 			},
 			bar: {
 				type: 'string',
-				nullable: true
-			}
-		}
+				nullable: true,
+			},
+		},
 	};
 
 	should(result).deepEqual(expected);
@@ -60,9 +58,9 @@ it('addionalProperties is false', async () => {
 		properties: {
 			foo: {
 				type: 'string',
-			}
+			},
 		},
-		additionalProperties: false
+		additionalProperties: false,
 	};
 
 	const result = await convert(schema);
@@ -72,9 +70,9 @@ it('addionalProperties is false', async () => {
 		properties: {
 			foo: {
 				type: 'string',
-			}
+			},
 		},
-		additionalProperties: false
+		additionalProperties: false,
 	};
 
 	should(result).deepEqual(expected, 'properties converted');
@@ -87,9 +85,9 @@ it('addionalProperties is true', async () => {
 		properties: {
 			foo: {
 				type: 'string',
-			}
+			},
 		},
-		additionalProperties: true
+		additionalProperties: true,
 	};
 
 	const result = await convert(schema);
@@ -99,9 +97,9 @@ it('addionalProperties is true', async () => {
 		properties: {
 			foo: {
 				type: 'string',
-			}
+			},
 		},
-		additionalProperties: true
+		additionalProperties: true,
 	};
 
 	should(result).deepEqual(expected);
@@ -114,17 +112,17 @@ it('addionalProperties is an object', async () => {
 		properties: {
 			foo: {
 				type: 'string',
-			}
+			},
 		},
 		additionalProperties: {
 			type: 'object',
 			properties: {
 				foo: {
 					type: 'string',
-					format: 'date-time'
-				}
-			}
-		}
+					format: 'date-time',
+				},
+			},
+		},
 	};
 
 	const result = await convert(schema);
@@ -133,19 +131,22 @@ it('addionalProperties is an object', async () => {
 		type: 'object',
 		properties: {
 			foo: {
-				type: 'string'
-			}
+				type: 'string',
+			},
 		},
 		additionalProperties: {
 			type: 'object',
 			properties: {
 				foo: {
 					type: 'string',
-					format: 'date-time'
-				}
-			}
-		}
+					format: 'date-time',
+				},
+			},
+		},
 	};
 
-	should(result).deepEqual(expected, 'properties and additionalProperties converted');
+	should(result).deepEqual(
+		expected,
+		'properties and additionalProperties converted'
+	);
 });

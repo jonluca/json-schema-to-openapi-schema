@@ -1,14 +1,12 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('exclusiveMinMax', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
 		type: 'integer',
-                exclusiveMaximum: 10,
-		exclusiveMinimum: 0
+		exclusiveMaximum: 10,
+		exclusiveMinimum: 0,
 	};
 
 	const result = await convert(schema);
@@ -18,7 +16,7 @@ it('exclusiveMinMax', async () => {
 		maximum: 10,
 		exclusiveMaximum: true,
 		minimum: 0,
-		exclusiveMinimum: true
+		exclusiveMinimum: true,
 	};
 
 	should(result).deepEqual(expected, 'converted');

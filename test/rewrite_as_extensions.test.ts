@@ -1,18 +1,16 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('renames illegal (unknown) keywords as extensions and skips those that already are', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
 		type: 'object',
 		properties: {
-      subject: {
-        type: 'string',
-        customProperty: true,
-        'x-alreadyAnExtension': true,
-      },
+			subject: {
+				type: 'string',
+				customProperty: true,
+				'x-alreadyAnExtension': true,
+			},
 		},
 	};
 
@@ -21,11 +19,11 @@ it('renames illegal (unknown) keywords as extensions and skips those that alread
 	const expected = {
 		type: 'object',
 		properties: {
-      subject: {
-        type: 'string',
-        'x-customProperty': true,
-        'x-alreadyAnExtension': true,
-      },
+			subject: {
+				type: 'string',
+				'x-customProperty': true,
+				'x-alreadyAnExtension': true,
+			},
 		},
 	};
 

@@ -1,7 +1,5 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('splits type arrays correctly', async () => {
 	const schema = {
@@ -9,13 +7,13 @@ it('splits type arrays correctly', async () => {
 		type: 'object',
 		properties: {
 			emptyArray: {
-				type: []
+				type: [],
 			},
 			arrayWithNull: {
-				type: ['null']
+				type: ['null'],
 			},
 			arrayWithSingleType: {
-				type: ['string']
+				type: ['string'],
 			},
 			arrayWithNullAndSingleType: {
 				type: ['null', 'string'],
@@ -26,7 +24,7 @@ it('splits type arrays correctly', async () => {
 			arrayWithMultipleTypes: {
 				type: ['string', 'number'],
 			},
-		}
+		},
 	};
 
 	const result = await convert(schema);
@@ -47,18 +45,12 @@ it('splits type arrays correctly', async () => {
 			},
 			arrayWithNullAndMultipleTypes: {
 				nullable: true,
-				anyOf: [
-					{ type: 'string' },
-					{ type: 'number' },
-				],
+				anyOf: [{ type: 'string' }, { type: 'number' }],
 			},
 			arrayWithMultipleTypes: {
-				anyOf: [
-					{ type: 'string' },
-					{ type: 'number' },
-				],
+				anyOf: [{ type: 'string' }, { type: 'number' }],
 			},
-		}
+		},
 	};
 
 	should(result).deepEqual(expected, 'converted');

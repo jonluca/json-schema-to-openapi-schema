@@ -1,7 +1,5 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('iterates allOfs and converts types', async () => {
 	const schema = {
@@ -13,19 +11,19 @@ it('iterates allOfs and converts types', async () => {
 				properties: {
 					foo: {
 						type: 'integer',
-						format: 'int64'
-					}
-				}
+						format: 'int64',
+					},
+				},
 			},
 			{
 				allOf: [
 					{
 						type: 'number',
-						format: 'double'
-					}
-				]
-			}
-		]
+						format: 'double',
+					},
+				],
+			},
+		],
 	};
 
 	const result = await convert(schema);
@@ -38,19 +36,19 @@ it('iterates allOfs and converts types', async () => {
 				properties: {
 					foo: {
 						type: 'integer',
-						format: 'int64'
-					}
-				}
+						format: 'int64',
+					},
+				},
 			},
 			{
 				allOf: [
 					{
 						type: 'number',
-						format: 'double'
-					}
-				]
-			}
-		]
+						format: 'double',
+					},
+				],
+			},
+		],
 	};
 
 	should(result).deepEqual(expected, 'iterated allOfs');
@@ -66,9 +64,9 @@ it('iterates anyOfs and converts types', async () => {
 				properties: {
 					foo: {
 						type: 'integer',
-						format: 'int64'
-					}
-				}
+						format: 'int64',
+					},
+				},
 			},
 			{
 				anyOf: [
@@ -77,13 +75,13 @@ it('iterates anyOfs and converts types', async () => {
 						properties: {
 							bar: {
 								type: 'number',
-								format: 'double'
-							}
-						}
-					}
-				]
-			}
-		]
+								format: 'double',
+							},
+						},
+					},
+				],
+			},
+		],
 	};
 
 	const result = await convert(schema);
@@ -96,9 +94,9 @@ it('iterates anyOfs and converts types', async () => {
 				properties: {
 					foo: {
 						type: 'integer',
-						format: 'int64'
-					}
-				}
+						format: 'int64',
+					},
+				},
 			},
 			{
 				anyOf: [
@@ -107,13 +105,13 @@ it('iterates anyOfs and converts types', async () => {
 						properties: {
 							bar: {
 								type: 'number',
-								format: 'double'
-							}
-						}
-					}
-				]
-			}
-		]
+								format: 'double',
+							},
+						},
+					},
+				],
+			},
+		],
 	};
 
 	should(result).deepEqual(expected, 'anyOfs iterated');
@@ -128,9 +126,9 @@ it('iterates oneOfs and converts types', async () => {
 				required: ['foo'],
 				properties: {
 					foo: {
-						type: ['string', 'null']
-					}
-				}
+						type: ['string', 'null'],
+					},
+				},
 			},
 			{
 				oneOf: [
@@ -138,13 +136,13 @@ it('iterates oneOfs and converts types', async () => {
 						type: 'object',
 						properties: {
 							bar: {
-								type: ['string', 'null']
-							}
-						}
-					}
-				]
-			}
-		]
+								type: ['string', 'null'],
+							},
+						},
+					},
+				],
+			},
+		],
 	};
 
 	const result = await convert(schema);
@@ -157,9 +155,9 @@ it('iterates oneOfs and converts types', async () => {
 				properties: {
 					foo: {
 						type: 'string',
-						nullable: true
-					}
-				}
+						nullable: true,
+					},
+				},
 			},
 			{
 				oneOf: [
@@ -168,13 +166,13 @@ it('iterates oneOfs and converts types', async () => {
 						properties: {
 							bar: {
 								type: 'string',
-								nullable: true
-							}
-						}
-					}
-				]
-			}
-		]
+								nullable: true,
+							},
+						},
+					},
+				],
+			},
+		],
 	};
 
 	should(result).deepEqual(expected, 'oneOfs iterated');
@@ -187,9 +185,9 @@ it('converts types in not', async () => {
 		properties: {
 			not: {
 				type: ['string', 'null'],
-				minLength: 8
-			}
-		}
+				minLength: 8,
+			},
+		},
 	};
 
 	const result = await convert(schema);
@@ -200,14 +198,13 @@ it('converts types in not', async () => {
 			not: {
 				type: 'string',
 				nullable: true,
-				minLength: 8
-			}
-		}
+				minLength: 8,
+			},
+		},
 	};
 
 	should(result).deepEqual(expected, 'not handled');
 });
-
 
 it('nested combination keywords', async () => {
 	const schema = {
@@ -219,35 +216,35 @@ it('nested combination keywords', async () => {
 						type: 'object',
 						properties: {
 							foo: {
-								type: ['string', 'null']
-							}
-						}
+								type: ['string', 'null'],
+							},
+						},
 					},
 					{
 						type: 'object',
 						properties: {
 							bar: {
-								type: ['integer', 'null']
-							}
-						}
-					}
-				]
+								type: ['integer', 'null'],
+							},
+						},
+					},
+				],
 			},
 			{
 				type: 'object',
 				properties: {
 					foo: {
 						type: 'string',
-					}
-				}
+					},
+				},
 			},
 			{
 				not: {
 					type: 'string',
-					example: 'foobar'
-				}
-			}
-		]
+					example: 'foobar',
+				},
+			},
+		],
 	};
 
 	const result = await convert(schema);
@@ -261,36 +258,36 @@ it('nested combination keywords', async () => {
 						properties: {
 							foo: {
 								type: 'string',
-								nullable: true
-							}
-						}
+								nullable: true,
+							},
+						},
 					},
 					{
 						type: 'object',
 						properties: {
 							bar: {
 								type: 'integer',
-								nullable: true
-							}
-						}
-					}
-				]
+								nullable: true,
+							},
+						},
+					},
+				],
 			},
 			{
 				type: 'object',
 				properties: {
 					foo: {
 						type: 'string',
-					}
-				}
+					},
+				},
 			},
 			{
 				not: {
 					type: 'string',
-					example: 'foobar'
-				}
-			}
-		]
+					example: 'foobar',
+				},
+			},
+		],
 	};
 
 	should(result).deepEqual(expected, 'nested combination keywords');

@@ -1,7 +1,5 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('cloning schema by default', async () => {
 	const schema = {

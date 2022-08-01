@@ -1,14 +1,11 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
-const getSchema = require('./helpers').getSchema;
+import convert from '../src';
+import should from 'should';
+import { getSchema } from './helpers';
 
 it('dateTime is invalid type', () => {
 	const schema = { type: 'dateTime' };
 	return should(convert(schema)).rejectedWith({ name: 'InvalidTypeError' });
 });
-
 
 it('foo is invalid type', () => {
 	const schema = { type: 'foo' };

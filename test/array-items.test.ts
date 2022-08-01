@@ -1,7 +1,5 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('array-items', async () => {
 	const schema = {
@@ -13,8 +11,7 @@ it('array-items', async () => {
 
 	const expected = {
 		type: 'array',
-		items: {
-		}
+		items: {},
 	};
 
 	should(result).deepEqual(expected, 'converted');

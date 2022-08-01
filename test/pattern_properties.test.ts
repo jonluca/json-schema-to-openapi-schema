@@ -1,20 +1,18 @@
-'use strict';
-
-const convert = require('../');
-const should = require('should');
+import convert from '../src';
+import should from 'should';
 
 it('renames patternProperties to x-patternProperties', async () => {
 	const schema = {
 		$schema: 'http://json-schema.org/draft-04/schema#',
 		type: 'object',
 		additionalProperties: {
-			type: 'string'
+			type: 'string',
 		},
 		patternProperties: {
 			'^[a-z]*$': {
-				type: 'string'
-			}
-		}
+				type: 'string',
+			},
+		},
 	};
 
 	const result = await convert(schema);
@@ -22,13 +20,13 @@ it('renames patternProperties to x-patternProperties', async () => {
 	const expected = {
 		type: 'object',
 		additionalProperties: {
-			type: 'string'
+			type: 'string',
 		},
 		'x-patternProperties': {
 			'^[a-z]*$': {
-				type: 'string'
-			}
-		}
+				type: 'string',
+			},
+		},
 	};
 
 	should(result).deepEqual(expected);
